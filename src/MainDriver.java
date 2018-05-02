@@ -13,25 +13,25 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class MainDriver extends Application{
-	
-	private Image card1;
-	private Image card2;
-	private Image card3;
-	private Image card4;
-	private ImageView imageView1;
-	private ImageView imageView2;
-	private ImageView imageView3;
-	private ImageView imageView4;
+
+	HBox hb2;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
+		Card card1=new Card();
+		Card card2=new Card();
+		Card card3=new Card();
+		Card card4=new Card();
+		
+		hb2=new HBox(card1.getImageView(),card2.getImageView(),card3.getImageView(),card4.getImageView());
 		
 		Button findSol = new Button("Find a Solution");
 		findSol.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				
+				System.out.println("Find Solution button pressed");
+
 			}
 		});
 		
@@ -41,18 +41,24 @@ public class MainDriver extends Application{
 		refresh.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				
+				card1.resetCard();
+				card2.resetCard();
+				card3.resetCard();
+				card4.resetCard();
+				System.out.println("Card1: "+card1.getFullLink());
+				System.out.println("Card2: "+card2.getFullLink());
+				System.out.println("Card3: "+card3.getFullLink());
+				System.out.println("Card4: "+card4.getFullLink());
+				hb2.getChildren().remove(0);
+				hb2.getChildren().remove(0);
+				hb2.getChildren().remove(0);
+				hb2.getChildren().remove(0);
+
+				hb2.getChildren().addAll(card1.getImageView(),card2.getImageView(),card3.getImageView(),card4.getImageView());
 			}
 		});
 		
 		HBox hb1=new HBox(findSol,tf,refresh);
-		
-		Card card1=new Card();
-		Card card2=new Card();
-		Card card3=new Card();
-		Card card4=new Card();
-		
-		HBox hb2=new HBox(card1.getImageView(),card2.getImageView(),card3.getImageView(),card4.getImageView());
 		
 		Label lb=new Label("Enter an expression:");
 
@@ -62,20 +68,12 @@ public class MainDriver extends Application{
 		verify.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				
+				System.out.println("Verify button pressed");
 			}
 		});
-		HBox hb3=new HBox(lb,tf2,verify);
 		
+		HBox hb3=new HBox(lb,tf2,verify);		
 		VBox vb=new VBox(hb1,hb2,hb3);
-		
-		Button resetPos = new Button("Reset");
-		resetPos.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				
-			}
-		});
 		Group gp=new Group(vb);
 
 		Scene scene = new Scene(gp, 900, 400, Color.WHITE);
