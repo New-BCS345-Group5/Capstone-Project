@@ -37,7 +37,7 @@ public class MainDriver extends Application{
 		
 		TextField tf=new TextField();
 		
-		Button refresh = new Button("Find a Solution");
+		Button refresh = new Button("Refresh");
 		refresh.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
