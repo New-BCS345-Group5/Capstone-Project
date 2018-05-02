@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 public class MainDriver extends Application{
 
 	HBox hb2;
+	private String num1,num2,num3,num4,op1,op2,op3;
+	private String userEquation;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -36,6 +38,7 @@ public class MainDriver extends Application{
 		});
 		
 		TextField tf=new TextField();
+		tf.setEditable(false);
 		
 		Button refresh = new Button("Refresh");
 		refresh.setOnAction(new EventHandler<ActionEvent>() {
@@ -45,10 +48,7 @@ public class MainDriver extends Application{
 				card2.resetCard();
 				card3.resetCard();
 				card4.resetCard();
-				System.out.println("Card1: "+card1.getFullLink());
-				System.out.println("Card2: "+card2.getFullLink());
-				System.out.println("Card3: "+card3.getFullLink());
-				System.out.println("Card4: "+card4.getFullLink());
+				
 				hb2.getChildren().remove(0);
 				hb2.getChildren().remove(0);
 				hb2.getChildren().remove(0);
@@ -68,7 +68,9 @@ public class MainDriver extends Application{
 		verify.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				System.out.println("Verify button pressed");
+				//System.out.println("Verify button pressed");
+				userEquation=tf2.getText();
+				//Break Apart the equation entered by the user here
 			}
 		});
 		
@@ -78,6 +80,7 @@ public class MainDriver extends Application{
 
 		Scene scene = new Scene(gp, 900, 400, Color.WHITE);
 		
+		primaryStage.setResizable(false);
 		primaryStage.setTitle("Card Game");
 		primaryStage.setScene(scene);
 		primaryStage.show();
@@ -87,5 +90,10 @@ public class MainDriver extends Application{
 	public static void main(String[]args) {
 		launch(args);
 	}
+	
+	//public boolean isWinnable(Card c1,Card c2,Card c3,Card c4) {
+		
+	//	return true;
+	//}
 
 }
