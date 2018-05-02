@@ -1,5 +1,4 @@
 import java.util.Random;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,46 +14,51 @@ import javafx.stage.Stage;
 public class MainDriver extends Application{
 
 	HBox hb2;
-	private String num1,num2,num3,num4,op1,op2,op3;
-	private String userEquation;
+	private String userEquation="",solutionEquation="";
+	private Card[] card=new Card[4];
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
-		Card card1=new Card();
-		Card card2=new Card();
-		Card card3=new Card();
-		Card card4=new Card();
-		
-		hb2=new HBox(card1.getImageView(),card2.getImageView(),card3.getImageView(),card4.getImageView());
+	
+		 card[0]=new Card();
+		 card[1]=new Card();
+		 card[2]=new Card();
+		 card[3]=new Card();
+		 
+		hb2=new HBox(card[0].getImageView(),card[1].getImageView(),card[2].getImageView(),card[3].getImageView());
 		
 		Button findSol = new Button("Find a Solution");
+		
+		TextField tf=new TextField();
+		tf.setEditable(false);
+		tf.setPrefWidth(200);
+		
+		Button refresh = new Button("Refresh");
+		
 		findSol.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
 				System.out.println("Find Solution button pressed");
-
+				isWinnable(card);
+				tf.setText(solutionEquation);
 			}
 		});
 		
-		TextField tf=new TextField();
-		tf.setEditable(false);
-		
-		Button refresh = new Button("Refresh");
 		refresh.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				card1.resetCard();
-				card2.resetCard();
-				card3.resetCard();
-				card4.resetCard();
+				card[0].resetCard();
+				card[1].resetCard();
+				card[2].resetCard();
+				card[3].resetCard();
 				
 				hb2.getChildren().remove(0);
 				hb2.getChildren().remove(0);
 				hb2.getChildren().remove(0);
 				hb2.getChildren().remove(0);
 
-				hb2.getChildren().addAll(card1.getImageView(),card2.getImageView(),card3.getImageView(),card4.getImageView());
+				hb2.getChildren().addAll(card[0].getImageView(),card[1].getImageView(),card[2].getImageView(),card[3].getImageView());
+				tf.setText("");
 			}
 		});
 		
@@ -90,10 +94,185 @@ public class MainDriver extends Application{
 	public static void main(String[]args) {
 		launch(args);
 	}
-	
-	//public boolean isWinnable(Card c1,Card c2,Card c3,Card c4) {
+
+	public void isWinnable(Card c[]) {
+		solutionEquation="There is no solution for this set";
+		// ++(+-/*)
+		int i=0,j=1,k=2,l=3;
+		int count=0;
+		for(count=0;count<25;count++) {
+		if(c[i].getValue()+c[j].getValue()+c[k].getValue()+c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"+"+c[j].getValue()+"+"+c[k].getValue()+"+"+c[l].getValue();
+		else if(c[i].getValue()+c[j].getValue()+c[k].getValue()-c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"+"+c[j].getValue()+"+"+c[k].getValue()+"-"+c[l].getValue();
+		else if(c[i].getValue()+c[j].getValue()+c[k].getValue()/c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"+"+c[j].getValue()+"+"+c[k].getValue()+"/"+c[l].getValue();
+		else if(c[i].getValue()+c[j].getValue()+c[k].getValue()*c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"+"+c[j].getValue()+"+"+c[k].getValue()+"*"+c[l].getValue();	
+		// +-(+-/*)
+		else if(c[i].getValue()+c[j].getValue()-c[k].getValue()+c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"+"+c[j].getValue()+"-"+c[k].getValue()+"+"+c[l].getValue();
+		else if(c[i].getValue()+c[j].getValue()-c[k].getValue()-c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"+"+c[j].getValue()+"-"+c[k].getValue()+"-"+c[l].getValue();
+		else if(c[i].getValue()+c[j].getValue()-c[k].getValue()/c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"+"+c[j].getValue()+"-"+c[k].getValue()+"/"+c[l].getValue();
+		else if(c[i].getValue()+c[j].getValue()-c[k].getValue()*c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"+"+c[j].getValue()+"-"+c[k].getValue()+"*"+c[l].getValue();	
+		// +/(+-/*)
+		else if(c[i].getValue()+c[j].getValue()/c[k].getValue()+c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"+"+c[j].getValue()+"/"+c[k].getValue()+"+"+c[l].getValue();
+		else if(c[i].getValue()+c[j].getValue()/c[k].getValue()-c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"+"+c[j].getValue()+"/"+c[k].getValue()+"-"+c[l].getValue();
+		else if(c[i].getValue()+c[j].getValue()/c[k].getValue()/c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"+"+c[j].getValue()+"/"+c[k].getValue()+"/"+c[l].getValue();
+		else if(c[i].getValue()+c[j].getValue()/c[k].getValue()*c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"+"+c[j].getValue()+"/"+c[k].getValue()+"*"+c[l].getValue();	
+		// +*(+-/*)
+		else if(c[i].getValue()+c[j].getValue()*c[k].getValue()+c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"+"+c[j].getValue()+"*"+c[k].getValue()+"+"+c[l].getValue();
+		else if(c[i].getValue()+c[j].getValue()*c[k].getValue()-c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"+"+c[j].getValue()+"*"+c[k].getValue()+"-"+c[l].getValue();
+		else if(c[i].getValue()+c[j].getValue()*c[k].getValue()/c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"+"+c[j].getValue()+"*"+c[k].getValue()+"/"+c[l].getValue();
+		else if(c[i].getValue()+c[j].getValue()*c[k].getValue()*c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"+"+c[j].getValue()+"*"+c[k].getValue()+"*"+c[l].getValue();	
+		////////////////
+		////////////////
+		// -+(+-/*)
+		else if(c[i].getValue()-c[j].getValue()+c[k].getValue()+c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"-"+c[j].getValue()+"+"+c[k].getValue()+"+"+c[l].getValue();
+		else if(c[i].getValue()-c[j].getValue()+c[k].getValue()-c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"-"+c[j].getValue()+"+"+c[k].getValue()+"-"+c[l].getValue();
+		else if(c[i].getValue()-c[j].getValue()+c[k].getValue()/c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"-"+c[j].getValue()+"+"+c[k].getValue()+"/"+c[l].getValue();
+		else if(c[i].getValue()-c[j].getValue()+c[k].getValue()*c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"-"+c[j].getValue()+"+"+c[k].getValue()+"*"+c[l].getValue();	
+		// --(+-/*)
+		else if(c[i].getValue()-c[j].getValue()-c[k].getValue()+c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"-"+c[j].getValue()+"-"+c[k].getValue()+"+"+c[l].getValue();
+		else if(c[i].getValue()-c[j].getValue()-c[k].getValue()-c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"-"+c[j].getValue()+"-"+c[k].getValue()+"-"+c[l].getValue();
+		else if(c[i].getValue()-c[j].getValue()-c[k].getValue()/c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"-"+c[j].getValue()+"-"+c[k].getValue()+"/"+c[l].getValue();
+		else if(c[i].getValue()-c[j].getValue()-c[k].getValue()*c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"-"+c[j].getValue()+"-"+c[k].getValue()+"*"+c[l].getValue();	
+		// -/(+-/*)
+		else if(c[i].getValue()-c[j].getValue()/c[k].getValue()+c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"-"+c[j].getValue()+"/"+c[k].getValue()+"+"+c[l].getValue();
+		else if(c[i].getValue()-c[j].getValue()/c[k].getValue()-c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"-"+c[j].getValue()+"/"+c[k].getValue()+"-"+c[l].getValue();
+		else if(c[i].getValue()-c[j].getValue()/c[k].getValue()/c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"-"+c[j].getValue()+"/"+c[k].getValue()+"/"+c[l].getValue();
+		else if(c[i].getValue()-c[j].getValue()/c[k].getValue()*c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"-"+c[j].getValue()+"/"+c[k].getValue()+"*"+c[l].getValue();	
+		// -*(+-/*)
+		else if(c[i].getValue()-c[j].getValue()*c[k].getValue()+c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"-"+c[j].getValue()+"*"+c[k].getValue()+"+"+c[l].getValue();
+		else if(c[i].getValue()-c[j].getValue()*c[k].getValue()-c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"-"+c[j].getValue()+"*"+c[k].getValue()+"-"+c[l].getValue();
+		else if(c[i].getValue()-c[j].getValue()*c[k].getValue()/c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"-"+c[j].getValue()+"*"+c[k].getValue()+"/"+c[l].getValue();
+		else if(c[i].getValue()-c[j].getValue()*c[k].getValue()*c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"-"+c[j].getValue()+"*"+c[k].getValue()+"*"+c[l].getValue();		
+		////////////////
+		////////////////
+		// /+(+-/*)
+		else if(c[i].getValue()/c[j].getValue()+c[k].getValue()+c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"/"+c[j].getValue()+"+"+c[k].getValue()+"+"+c[l].getValue();
+		else if(c[i].getValue()/c[j].getValue()+c[k].getValue()-c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"/"+c[j].getValue()+"+"+c[k].getValue()+"-"+c[l].getValue();
+		else if(c[i].getValue()/c[j].getValue()+c[k].getValue()/c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"/"+c[j].getValue()+"+"+c[k].getValue()+"/"+c[l].getValue();
+		else if(c[i].getValue()/c[j].getValue()+c[k].getValue()*c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"/"+c[j].getValue()+"+"+c[k].getValue()+"*"+c[l].getValue();	
+		// /-(+-/*)
+		else if(c[i].getValue()/c[j].getValue()-c[k].getValue()+c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"/"+c[j].getValue()+"-"+c[k].getValue()+"+"+c[l].getValue();
+		else if(c[i].getValue()/c[j].getValue()-c[k].getValue()-c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"/"+c[j].getValue()+"-"+c[k].getValue()+"-"+c[l].getValue();
+		else if(c[i].getValue()/c[j].getValue()-c[k].getValue()/c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"/"+c[j].getValue()+"-"+c[k].getValue()+"/"+c[l].getValue();
+		else if(c[i].getValue()/c[j].getValue()-c[k].getValue()*c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"/"+c[j].getValue()+"-"+c[k].getValue()+"*"+c[l].getValue();	
+		// //(+-/*)
+		else if(c[i].getValue()/c[j].getValue()/c[k].getValue()+c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"/"+c[j].getValue()+"/"+c[k].getValue()+"+"+c[l].getValue();
+		else if(c[i].getValue()/c[j].getValue()/c[k].getValue()-c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"/"+c[j].getValue()+"/"+c[k].getValue()+"-"+c[l].getValue();
+		else if(c[i].getValue()/c[j].getValue()/c[k].getValue()/c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"/"+c[j].getValue()+"/"+c[k].getValue()+"/"+c[l].getValue();
+		else if(c[i].getValue()/c[j].getValue()/c[k].getValue()*c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"/"+c[j].getValue()+"/"+c[k].getValue()+"*"+c[l].getValue();	
+		// /*(+-/*)
+		else if(c[i].getValue()/c[j].getValue()*c[k].getValue()+c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"/"+c[j].getValue()+"*"+c[k].getValue()+"+"+c[l].getValue();
+		else if(c[i].getValue()/c[j].getValue()*c[k].getValue()-c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"/"+c[j].getValue()+"*"+c[k].getValue()+"-"+c[l].getValue();
+		else if(c[i].getValue()/c[j].getValue()*c[k].getValue()/c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"/"+c[j].getValue()+"*"+c[k].getValue()+"/"+c[l].getValue();
+		else if(c[i].getValue()/c[j].getValue()*c[k].getValue()*c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"/"+c[j].getValue()+"*"+c[k].getValue()+"*"+c[l].getValue();					
+		////////////////
+		////////////////
+		// *+(+-/*)
+		else if(c[i].getValue()*c[j].getValue()+c[k].getValue()+c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"*"+c[j].getValue()+"+"+c[k].getValue()+"+"+c[l].getValue();
+		else if(c[i].getValue()*c[j].getValue()+c[k].getValue()-c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"*"+c[j].getValue()+"+"+c[k].getValue()+"-"+c[l].getValue();
+		else if(c[i].getValue()*c[j].getValue()+c[k].getValue()/c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"*"+c[j].getValue()+"+"+c[k].getValue()+"/"+c[l].getValue();
+		else if(c[i].getValue()*c[j].getValue()+c[k].getValue()*c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"*"+c[j].getValue()+"+"+c[k].getValue()+"*"+c[l].getValue();	
+		// *-(+-/*)
+		else if(c[i].getValue()*c[j].getValue()-c[k].getValue()+c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"*"+c[j].getValue()+"-"+c[k].getValue()+"+"+c[l].getValue();
+		else if(c[i].getValue()*c[j].getValue()-c[k].getValue()-c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"*"+c[j].getValue()+"-"+c[k].getValue()+"-"+c[l].getValue();
+		else if(c[i].getValue()*c[j].getValue()-c[k].getValue()/c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"*"+c[j].getValue()+"-"+c[k].getValue()+"/"+c[l].getValue();
+		else if(c[i].getValue()*c[j].getValue()-c[k].getValue()*c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"*"+c[j].getValue()+"-"+c[k].getValue()+"*"+c[l].getValue();	
+		// /*(+-/*)
+		else if(c[i].getValue()*c[j].getValue()/c[k].getValue()+c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"*"+c[j].getValue()+"/"+c[k].getValue()+"+"+c[l].getValue();
+		else if(c[i].getValue()*c[j].getValue()/c[k].getValue()-c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"*"+c[j].getValue()+"/"+c[k].getValue()+"-"+c[l].getValue();
+		else if(c[i].getValue()*c[j].getValue()/c[k].getValue()/c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"*"+c[j].getValue()+"/"+c[k].getValue()+"/"+c[l].getValue();
+		else if(c[i].getValue()*c[j].getValue()/c[k].getValue()*c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"*"+c[j].getValue()+"/"+c[k].getValue()+"*"+c[l].getValue();	
+		// **(+-/*)
+		else if(c[i].getValue()*c[j].getValue()*c[k].getValue()+c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"*"+c[j].getValue()+"*"+c[k].getValue()+"+"+c[l].getValue();
+		else if(c[i].getValue()*c[j].getValue()*c[k].getValue()-c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"*"+c[j].getValue()+"*"+c[k].getValue()+"-"+c[l].getValue();
+		else if(c[i].getValue()*c[j].getValue()*c[k].getValue()/c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"*"+c[j].getValue()+"*"+c[k].getValue()+"/"+c[l].getValue();
+		else if(c[i].getValue()*c[j].getValue()*c[k].getValue()*c[l].getValue()==24) 
+			solutionEquation=""+c[i].getValue()+"*"+c[j].getValue()+"*"+c[k].getValue()+"*"+c[l].getValue();		
 		
-	//	return true;
-	//}
+		i++;
+		j++;
+		k++;
+		l++;
+		if (i==4) 
+			i=0;
+		if (j==4) 
+			j=0;
+		if (k==4) 
+			k=0;
+		if (l==4) 
+			l=0;
+		System.out.println("i="+i);
+		System.out.println("j="+j);
+		System.out.println("k="+k);		
+		System.out.println("l="+l);
+		System.out.println("Count: "+count);
+		System.out.println("Solution: "+solutionEquation);
+		}
+		if (solutionEquation.equals(""))
+			solutionEquation="There is no solution for this set";
+
+	}
 
 }
