@@ -12,6 +12,17 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+/**
+ * This is a class that is used to make the game playing card 24.
+ * This game is designed in a way that it will display
+ * 4 random cards which inlude all 52 paying cards.
+ * The user is supossed to make an equation that include the
+ * basic four operation to make an expersion to get the value 24.
+ * @author Jaison, Corner, Waqar
+ *
+ */
+
+
 
 public class MainDriver extends Application{
 
@@ -24,7 +35,10 @@ public class MainDriver extends Application{
 	private long startTime = System.nanoTime();
 	Label lb2;
 
+	
+	
 	@Override
+	
 	public void start(Stage primaryStage) throws Exception {
 	
 		 card[0]=new Card();
@@ -109,6 +123,11 @@ public class MainDriver extends Application{
 		launch(args);
 	}
 
+	/**
+	 * 
+	 * @param c
+	 * @return
+	 */
 	public String isWinnable(Card c[]) {
 		String solutionEquation="There is no solution for this set";
 		// ++(+-/*)
