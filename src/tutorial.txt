@@ -1,0 +1,17 @@
+Instruction
+This game is called Playing Cards24
+•	The objective of this game is to use basic operation such as addition, subtraction, multiplication, division to find the finial value 24 with the four cards value.
+•	The user supposed to enter an expression for example (7*9/4+9) to find the value 24.
+•	The cards are represented by 
+	o	their numbers (2-10),
+	o	Ace is one
+	o	Jack is 11
+	o	Queen is 12
+	o	King is 13
+•	Once you enter the expression you find enter it in the textbox and hit “verify” to check the solution.
+	o	If the expression is correct the program will print out “Congratulations! You took (the amount of time you took) to find the answer.”
+	o	The program prints out the amount of time you took to find the answer in seconds.
+	o	If the expression is wrong the program will print out “Ans was not correct”
+•	If you don’t know the answer you could hit the “Find a Solution” to find a possible answer.
+•	If there is no solution the program will print out “There is no solution”.
+ 
