@@ -83,11 +83,46 @@ public ImageView getImageView() {
 	return imageView;
 }
 /**
- * This method add the ramdom values to the playing cards according the file name.
+ * This method add the random values to the playing cards according the file name.
  * @return Returns the values of the card
  */
 public int getValue() {
 	return value;
+}
+/**
+ * This method add the random values to the playing cards according the file name.
+ * @return Returns the values of the card
+ */
+public int getRandLetter() {
+	return randLetter;
+}
+/**
+ * @return Returns the first part of the card link
+ */
+public String getFirstPart() {
+	return firstPart;
+}
+/**
+ * @return Returns the last part of the card link
+ */
+public String getLastPart() {
+	return lastPart;
+}
+/**
+ * @return Returns the suit of the card
+ */
+public String getSuit() {
+	if(randLetter==1) 
+		return "spades";	
+	else if (randLetter==2)
+		return "clubs";
+	else if (randLetter==3)
+		return "hearts";
+	else if (randLetter==4)
+		return "diamonds";
+	else
+		return "No suit";
+	
 }
 /**
  * This method sets a new card number
