@@ -3,6 +3,13 @@ import java.util.Random;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * @author Jaison, Corner, Waqar
+ *This calss contains the if statemests to identfy the 52 playing cards.
+ *Each of the cards is identfied by file name. first part of the file name 
+ *is the numbers and the last part will identfy what shape does the card belongs to.
+ */
+
 public class Card {
 private Random rand = new Random();
 private String firstPart,lastPart,fullLink;
@@ -10,8 +17,11 @@ private int randLetter= rand.nextInt(4)+1,randNumber = rand.nextInt(13)+1,value;
 private Image card;
 private ImageView imageView;
 
+
+
 public Card(){
 	//Defining first half of file name
+	
 	if(randNumber==1) 
 		firstPart="ace";
 	else if (randNumber==2)
@@ -58,16 +68,30 @@ public Card(){
 	//Adding Value of card
 	value=randNumber;
 }
-
+/**
+ * this method is a string that identify the whole card with the number and the shape
+ * @return returns the card details with number and shape
+ */
 public String getFullLink() {
 	return fullLink;
 }
+/**
+ * This method get the image on the screen
+ * @return Returns image
+ */
 public ImageView getImageView() {
 	return imageView;
 }
+/**
+ * This method add the ramdom values to the playing cards according the file name.
+ * @return Returns the values of the card
+ */
 public int getValue() {
 	return value;
 }
+/**
+ * This method sets a new card number
+ */
 public void resetCard() {
 	randLetter= rand.nextInt(4)+1;
 	randNumber = rand.nextInt(13)+1;

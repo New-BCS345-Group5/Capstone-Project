@@ -17,13 +17,18 @@ import javafx.stage.Stage;
  * This game is designed in a way that it will display
  * 4 random cards which inlude all 52 paying cards.
  * The user is supossed to make an equation that include the
- * basic four operation to make an expersion to get the value 24.
+ * basic four operation to make an expersion to get the value 24 
+ * using the four cards displayed on the screen.
+ * 
+ * The cards are represented by 
+ * their numbers (2-10),
+ * Ace is one,
+ * Jack is 11,
+ * Queen is 12 and
+ * King is 13. 
  * @author Jaison, Corner, Waqar
  *
  */
-
-
-
 public class MainDriver extends Application{
 
 	HBox hb2;
@@ -37,8 +42,16 @@ public class MainDriver extends Application{
 
 	
 	
-	@Override
+
 	
+	
+	@Override
+	/**
+	 * creates a window to dispay the 4 playing cards with all other button
+	 * findSol= finds the solution 
+	 * refresh= when hit will display another set of 4 cards 
+	 * verify= this button will check the soluion from the possible solutions list
+	 */
 	public void start(Stage primaryStage) throws Exception {
 	
 		 card[0]=new Card();
@@ -60,6 +73,7 @@ public class MainDriver extends Application{
 		
 		findSol.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
+			
 			public void handle(ActionEvent e) {
 				System.out.println("Find Solution button pressed");				
 				tf.setText(isWinnable(card));
@@ -124,10 +138,12 @@ public class MainDriver extends Application{
 	}
 
 	/**
+	 * This mehtod makes possible solution for the displayed for the given cards.
 	 * 
-	 * @param c
-	 * @return
+	 * @param c the parameter c[] holds the solution for the each set of displayed cards
+	 * @return Returns the possible solution according to the values displayed in the window
 	 */
+	
 	public String isWinnable(Card c[]) {
 		String solutionEquation="There is no solution for this set";
 		// ++(+-/*)
@@ -496,12 +512,21 @@ public class MainDriver extends Application{
 		System.out.println("Count: "+count);
 		System.out.println("Solution: "+solutionEquation);
 		}
+		
 		if (solutionEquation.equals(""))
 			solutionEquation="There is no solution for this set";
 		System.out.println("Amount of Solutions: "+ansCount);
 		//for verify store all solutions into an array then check against the solution they enter
 		return solutionEquation;
 	}
+	/**
+	 * This method is to verify the answer to the one in the solution.
+	 * The if statement check if there is possible soulution if not return "There is no solution for this set"
+	 * In the while statement the program checks both the user input solution and the possible solution and if the 
+	 * answer is correct the program prints out "Answer was Correct".
+	 * The program also prints out the time user took to figure out the solution for the game.
+	 */
+	
 	public void verifyAnswer() {
 		int i=0;
 		System.out.println("in verify answer function");
@@ -511,6 +536,7 @@ public class MainDriver extends Application{
 			lb2.setText("There is no solution for this set");
 		else{
 			int c=0;
+			
 			while(c<ansCount) {
 				if (solutions[i].equals(userEquation)) {
 					System.out.println("Ans was Correct");
@@ -524,6 +550,7 @@ public class MainDriver extends Application{
 				System.out.println("C: "+c);
 				
 			}
+			
 			System.out.println("Ans was not Correct");
 	}
 	}
